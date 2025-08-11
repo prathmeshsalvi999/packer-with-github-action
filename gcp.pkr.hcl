@@ -34,10 +34,10 @@ variable "region" {
 source "googlecompute" "windows-2025" {
   image_name          = "packer-win2025-gcp-{{timestamp}}"
   image_description   = "windows-2025 server-{{timestamp}}"
-  project_id          = "prathmesh-sandbox-468318"
+  project_id          =  "var.project_id"
   source_image        = "windows-server-2025-dc-v20250710"
   source_image_family = "windows-2019"
-  zone                = "asia-east1-a"
+  zone                = "${var.region}-a"
   disk_size           = 50
   machine_type        = "n1-standard-2"
   communicator        = "winrm"
