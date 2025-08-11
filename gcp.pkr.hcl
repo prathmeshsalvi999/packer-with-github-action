@@ -32,7 +32,6 @@ variable "region" {
 #}
 
 source "googlecompute" "windows-2025" {
-  account_file        = "secrets.json"
   image_name          = "packer-win2025-gcp-{{timestamp}}"
   image_description   = "windows-2025 server-{{timestamp}}"
   project_id          = "prathmesh-sandbox-468318"
