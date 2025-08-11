@@ -9,7 +9,7 @@ packer {
 
 variable "project_id" {
   type    = string
-  default = "your-gcp-project-id"
+  default = "prathmesh-sandbox-468318"
 }
 
 variable "region" {
