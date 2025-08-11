@@ -1,0 +1,36 @@
+name: GCP Packer Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  packer-gcp:
+    name: Build GCP Image with Packer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Packer
+        uses: hashicorp/setup-packer@v2
+        with:
+          version: '1.11.0'  # Use the version you prefer
+
+      - name: Install Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: your-gcp-project-id
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
+
+      - name: Initialize Packer
+        run: packer init .
+
+      - name: Validate Packer Template
+        run: packer validate .
+
+      - name: Build Image
+        run: packer build .
