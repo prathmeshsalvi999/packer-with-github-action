@@ -23,6 +23,8 @@ source "googlecompute" "debian" {
   source_image    = "debian-11-bullseye-v20230814"
   image_name      = "packer-image-{{timestamp}}"
   machine_type    = "e2-medium"
+  # 👇 REQUIRED: Username Packer will use to SSH into the instance
+  ssh_username    = "packer"
 }
 
 build {
