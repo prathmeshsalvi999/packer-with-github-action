@@ -17,9 +17,14 @@ variable "region" {
   default = "asia-east1-a"
 }
 
+#variable "gcp_credentials_path" {
+ # type      = string
+ # default = "GOOGLE_APPLICATION_CREDENTIALS"
+ # sensitive = true
+#}
+
 variable "gcp_credentials_path" {
   type      = string
-  default = "GOOGLE_APPLICATION_CREDENTIALS"
   sensitive = true
 }
 
@@ -56,15 +61,12 @@ source "googlecompute" "windows-2025" {
 }
 build {
   sources = ["sources.googlecompute.windows-2025"]
-   provisioner "powershell" {
-     environment_vars = [
-      "GOOGLE_APPLICATION_CREDENTIALS={{ root `gcp_credentials_path` }}"
+  provisioner "powershell" {
+    environment_vars = [
+      "GOOGLE_APPLICATION_CREDENTIALS={{ user `gcp_credentials_path` }}"
   ]
-     inline = [
-      "Write-Host 'Credentials path: $env:GOOGLE_APPLICATION_CREDENTIALS'"
+    inline = [
+      "Write-Host 'Using GCP credentials at: $env:GOOGLE_APPLICATION_CREDENTIALS'"
   ]
 }
-
-
-
 }
