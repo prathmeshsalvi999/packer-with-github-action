@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      # Authenticating with GCP using Service Account Key
+      - name: Configure Authentication with GCP
+        uses: "google-github-actions/auth@v0"
+        with:
+          credentials_json: "${{ secrets.SA_KEY }}"
 
       - name: Set up Packer
         uses: hashicorp/setup-packer@v2
