@@ -19,6 +19,7 @@ variable "region" {
 
 variable "gcp_credentials_path" {
   type      = string
+  default = "GOOGLE_APPLICATION_CREDENTIALS"
   sensitive = true
 }
 
