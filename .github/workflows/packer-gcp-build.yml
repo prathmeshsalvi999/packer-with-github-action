@@ -38,6 +38,6 @@ jobs:
         run: packer validate .
 
       - name: Build Image
-        run: packer build .
+        run: packer build -var "gcp_credentials_path=$GOOGLE_APPLICATION_CREDENTIALS" gcp.pkr.hcl
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
