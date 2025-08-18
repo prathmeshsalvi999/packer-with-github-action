@@ -58,7 +58,7 @@ build {
   sources = ["sources.googlecompute.windows-2025"]
    provisioner "powershell" {
      environment_vars = [
-      "GOOGLE_APPLICATION_CREDENTIALS={{ user `gcp_credentials_path` }}"
+      "GOOGLE_APPLICATION_CREDENTIALS={{ env `gcp_credentials_path` }}"
   ]
      inline = [
       "Write-Host 'Credentials path: $env:GOOGLE_APPLICATION_CREDENTIALS'"
