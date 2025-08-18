@@ -53,7 +53,7 @@ build {
 
   provisioner "powershell" {
     environment_vars = [
-      "MY_SECRET_VAR={{env `GOOGLE_APPLICATION_CREDENTIALS`}}"
+      "GOOGLE_APPLICATION_CREDENTIALS={{env `GOOGLE_APPLICATION_CREDENTIALS`}}"
   ]
 }
 
