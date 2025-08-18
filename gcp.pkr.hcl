@@ -56,9 +56,6 @@ provisioner "powershell" {
   environment_vars = [
     "MY_SECRET_VAR={{env `GOOGLE_APPLICATION_CREDENTIALS`}}"
   ]
-  inline = [
-    "Write-Host \"The secret is: $env:GOOGLE_APPLICATION_CREDENTIALS\""
-  ]
 }
 
 }
