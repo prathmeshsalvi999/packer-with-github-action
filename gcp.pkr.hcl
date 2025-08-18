@@ -51,10 +51,9 @@ source "googlecompute" "windows-2025" {
 build {
   sources = ["sources.googlecompute.windows-2025"]
 
-
-provisioner "powershell" {
-  environment_vars = [
-    "MY_SECRET_VAR={{env `GOOGLE_APPLICATION_CREDENTIALS`}}"
+  provisioner "powershell" {
+    environment_vars = [
+      "MY_SECRET_VAR={{env `GOOGLE_APPLICATION_CREDENTIALS`}}"
   ]
 }
 
