@@ -18,9 +18,10 @@ variable "image_name" {
 }
 
 source "googlecompute" "ubuntu" {
+  image_name          = "packer-ubuntu-gcp-{{timestamp}}"
   project_id      = var.project_id
   source_image_family = "ubuntu-2204-lts"
-  source_image_project_id = "ubuntu-os-cloud"
+  #source_image_project_id = "ubuntu-os-cloud"
   zone            = "asia-east1-a"
   machine_type    = "e2-medium"
   image_name      = var.image_name
