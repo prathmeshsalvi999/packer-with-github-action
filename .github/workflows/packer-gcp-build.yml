@@ -39,8 +39,6 @@ jobs:
 
       - name: Build Image
         #run: packer build -var "gcp_credentials_path=/path/to/key.json" gcp.pkr.hcl
-        run: packer build \
-              -var "project_id=${{ secrets.GCP_PROJECT_ID }}" \
-               gcp.pkr.hcl
+        run: packer build -var "project_id=${{ secrets.GCP_PROJECT_ID }}" gcp.pkr.hcl
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
