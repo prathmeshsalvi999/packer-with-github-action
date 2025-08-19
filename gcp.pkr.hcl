@@ -24,6 +24,8 @@ source "googlecompute" "ubuntu" {
   #source_image_project_id = "ubuntu-os-cloud"
   zone            = "asia-east1-a"
   machine_type    = "e2-medium"
+  # 👇 REQUIRED: Username Packer will use to SSH into the instance
+  ssh_username    = "packer"
   image_name      = var.image_name
   disk_size       = 10
 }
