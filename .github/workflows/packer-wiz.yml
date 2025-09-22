@@ -1,0 +1,54 @@
+# .github/workflows/packer-wiz.yml
+name: Build GCP VM with Packer & Scan with Wiz
+
+on:
+  push:
+    paths:
+      - 'packer/**'
+      - '.github/workflows/packer-wiz.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Google Cloud SDK
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      # 3. Install Packer
+      - name: Install Packer
+        uses: hashicorp/setup-packer@v2
+        with:
+          version: '1.10.0'
+
+      # 4. Initialize and build Packer template
+      - name: Run Packer build
+        run: |
+          cd packer
+          packer init .
+          packer build -var "project_id=${{ secrets.GCP_PROJECT_ID }}" gcp.pkr.hcl
+
+      # 5. Install Wiz CLI
+      - name: Install Wiz CLI
+        run: |
+          curl -sSL https://wizcli.app/download/latest | sh
+          sudo mv wiz /usr/local/bin/
+
+      # 6. Authenticate Wiz CLI
+      - name: Authenticate to Wiz
+        run: wiz auth --api-token "${{ secrets.WIZ_API_TOKEN }}"
+
+      # 7. Run Wiz IaC scan
+      - name: Wiz IaC Scan
+        run: |
+          wiz scan --config wiz-iac-scan.yaml
