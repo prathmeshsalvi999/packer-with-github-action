@@ -1,0 +1,19 @@
+version: 1.0
+
+scan:
+  name: "GCP Packer Template Scan"
+  description: "IaC scan of GCP VM Packer build"
+  type: "iac"
+
+  targets:
+    - path: "./packer"
+
+  severity_threshold: "medium"
+  fail_on_severity: "high"
+
+  output:
+    format: "json"
+    file: "wiz_iac_scan_results.json"
+
+auth:
+  api_token: "${WIZ_API_TOKEN}"
